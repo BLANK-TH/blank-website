@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}New Shortened URL{% endblock %}
+{% block body %}
+    <form action="#" method="post">
+        <label for="spf">Shortened Postfix (leave empty for random):</label><br>
+        <input type="text" id="spf" name="short" style="width: 80%;"><br>
+        <label for="lurl">Long URL:</label><br>
+        <input type="text" id="lurl" name="long" style="width: 80%;"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

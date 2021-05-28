@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>500 Error</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='errors/500.css') }}">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="error-500" data-text="Oh no! Our spaghetti code is not working properly. We will be back soon!">
+    <spaguetti>
+    <fork></fork>
+    <meat></meat>
+    <pasta></pasta>
+    <plate></plate>
+  </spaguetti>
+</div>
+<!-- partial -->
+  <script  src="{{ url_for('static',filename='errors/500.js') }}"></script>
+
+</body>
+</html>

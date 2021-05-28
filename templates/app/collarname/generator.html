@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Collar Name Generator{% endblock %}
+{% block body %}
+    <h1>Collar Name Tag</h1>
+    <i><a href="tutorial">Tutorial</a> | <a href="faq">F.A.Q.</a></i>
+    <h2>Generator</h2>
+    <form action="#" method="post" enctype="multipart/form-data">
+        <h3>Model Type</h3>
+        <input type="radio" id="normal" name="imagebase" value="normal" checked="checked" required>
+        <label for="normal">Base Model</label>
+        <input type="radio" id="shock" name="imagebase" value="shock" required>
+        <label for="shock">Shock Model</label>
+        <input type="radio" id="custom" name="imagebase" value="custom" required>
+        <label for="custom">Custom</label>
+        <h3>Custom File</h3>
+        <p>Add if you selected the <span class="highlightBlock"><i>Custom</i></span> option in the previous category</p>
+        <input type="file" name="customfile">
+        <h3>Config</h3>
+        <label for="text">Name Tag Text</label>
+        <input type="text" id="text" name="nametext" value="I'm cute!" style="width:70%;" required><br>
+        <label for="fsize">Font Size</label>
+        <input type="number" id="fsize" name="fsize" min="1" max="100" value="10" step="1" style="width:45px;" required><br>
+        <label for="xpad">X Padding</label>
+        <input type="number" id="xpad" name="xpad" min="0" max="100" value="2" step="1" style="width:45px;" required><br>
+        <label for="ypad">Y Padding</label>
+        <input type="number" id="ypad" name="ypad" min="0" max="100" value="2" step="1" style="width:45px;" required><br>
+        <input type="submit" value="Submit">
+        <hr>
+        <h3>Advanced Config</h3>
+        <p>Don't edit unless you know what you're doing!</p>
+        <label for="midorigin">Mid Origin</label>
+        <input type="number" id="midorigin" name="midorigin" value="287" step="1" style="width:54px;" required><br>
+        <label for="toporigin">Top Origin</label>
+        <input type="number" id="toporigin" name="toporigin" value="258" step="1" style="width:54px;" required><br>
+        <label for="maxheight">Max Height</label>
+        <input type="number" id="maxheight" name="maxheight" value="125" step="1" style="width:54px;" required><br>
+        <label for="maxwidth">Max Width</label>
+        <input type="number" id="maxwidth" name="maxwidth" value="287" step="1" style="width:54px;" required><br>
+    </form>
+    {% if imgur_url is not none and simg is not none %}
+        <hr>
+        <h2>Result</h2>
+        <p>Do <strong>NOT</strong> download the (below) preview image, it will not render properly as it's a cropped
+        preview, instead, copy the already provided direct Imgur link right below it.</p>
+        <img src="{{ simg }}" alt="Preview of Image"><br>
+        <div class="selectAllCode">{{ imgur_url }}</div>
+    {% endif %}
+{% endblock %}

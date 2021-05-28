@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for("static", filename="base.css") }}">
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} - BLANK's Website</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body style="padding-left:12px;padding-right:12px;padding-top:5px;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">BLANK's Site</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/s">URL Shortener</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/app">Apps</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% if pth is defined %}
+    <header>
+        <o><a href="/">Home</a> ></o>
+        {% set ps = namespace(value="") %}
+        {% set sp = pth.split("/") %}
+        {% for i in sp[:-1] %}
+            {% set ps.value = ps.value + "/" + i %}
+            {% if rp is defined and i in rp.keys() %}
+                <o><a href="{{ ps.value }}"> {{ rp[i] }}</a> ></o>
+            {% else %}
+                <o><a href="{{ ps.value }}"> {{ i.title().replace("-"," ") }}</a> ></o>
+            {% endif %}
+        {% endfor %}
+        {% if rp is defined and sp[-1] in rp.keys() %}
+            <o><a href="#"> {{ rp[sp[-1]] }}</a></o>
+        {% else %}
+            <o><a href="#"> {{ sp[-1].title().replace("-"," ") }}</a></o>
+        {% endif %}
+        <hr>
+    </header>
+{% endif %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class=flashes>
+            {% for category, message in messages %}
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+<footer>
+    <hr>
+    <span style="font-size: 12px"><i>
+        Site by blank_dvth |
+        <a href="mailto:webcontact@blankdvth.anonaddy.com">Contact</a> |
+        <a href="/terms-of-service">Terms of Service</a> |
+        <a href="https://palletsprojects.com/p/flask/">Made with Flask</a>
+    </i></span>
+</footer>
+</html>
