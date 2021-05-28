@@ -46,7 +46,7 @@ def webhook():
         origin = repo.remotes.origin
         try:
             origin.pull()
-        except git.GitCommandError:
+        except GitCommandError:
             repo.git.reset('--hard')
         return 'Updated PythonAnywhere successfully', 200
     else:
