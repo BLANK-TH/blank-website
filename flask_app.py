@@ -42,7 +42,7 @@ def webhook():
         origin.pull()
         return 'Updated PythonAnywhere successfully', 200
     else:
-        return 'Wrong type', 400
+        return 'Wrong request type', 400
 
 
 @app.errorhandler(401)
