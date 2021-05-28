@@ -44,10 +44,9 @@ def webhook():
     elif request.method == "POST":
         repo = git.Repo()
         origin = repo.remotes.origin
-        try:
-            origin.pull()
-        except GitCommandError:
-            repo.git.reset('--hard')
+        repo.git.reset('--hard')
+        repo.git.clean("-fd")
+        origin.pull()
         return 'Updated PythonAnywhere successfully', 200
     else:
         abort(400)
