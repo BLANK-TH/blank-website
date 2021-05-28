@@ -8,4 +8,11 @@
         <input type="text" id="lurl" name="long" style="width: 80%;"><br><br>
         <input type="submit" value="Submit">
     </form>
+    {% if pin is defined %}
+        <hr>
+        <label for="deletion_url">Deletion URL:</label>
+        <input onClick="this.select();" id="deletion_url"
+               value="{{ request.url_root[:-1] }}{{ url_for("shortener.delete", sub=short, pin=pin) }}"
+               style="width:70%" />
+    {% endif %}
 {% endblock %}

@@ -1,21 +1,17 @@
-from pymongo import MongoClient
 from os import environ, getenv
 import hmac
 import hashlib
 
-required = ["MONGO_URL","PASSWORD","IMGUR_CLIENT","WEBHOOK_SECRET"]
+required = ["SQL_USERNAME", "SQL_PASSWORD", "SQL_URI", "SQL_HOSTNAME", "IMGUR_CLIENT", "WEBHOOK_SECRET"]
 for i in required:
     if i not in environ.keys():
         print("Missing env value " + i)
         exit()
 
-MDURL = getenv("MONGO_URL")
-PASSWORD = getenv("PASSWORD")
+SQL_USERNAME, SQL_PASSWORD, SQL_URI, SQL_HOSTNAME = getenv("SQL_USERNAME"), getenv("SQL_PASSWORD"),\
+                                                    getenv("SQL_URI"), getenv("SQL_HOSTNAME")
 IMGUR_CLIENT = getenv("IMGUR_CLIENT")
 WEBHOOK_SECRET = getenv("WEBHOOK_SECRET")
-
-mongo_client = MongoClient(MDURL.format(PASSWORD), connectTimeoutMS=30000, socketTimeoutMS=None,
-                           socketKeepAlive=True, connect=False, maxPoolsize=1)
 
 def github_valid(signature, data):
     hash_algorithm, github_signature = signature.split('=', 1)
