@@ -13,8 +13,6 @@ MDURL = getenv("MONGO_URL")
 PASSWORD = getenv("PASSWORD")
 IMGUR_CLIENT = getenv("IMGUR_CLIENT")
 WEBHOOK_SECRET = getenv("WEBHOOK_SECRET")
-print(WEBHOOK_SECRET)
-
 
 mongo_client = MongoClient(MDURL.format(PASSWORD))
 
