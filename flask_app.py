@@ -1,6 +1,7 @@
-from flask import Flask, render_template, redirect, abort, send_from_directory
+from flask import Flask, render_template, redirect, abort, send_from_directory, request
 from secrets import token_urlsafe
 from os.path import join
+import git
 
 import subpages
 
@@ -26,6 +27,16 @@ def favicon():
 @app.route('/dashboard')
 def fda():
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+@app.route("/update_server", methods=["POST"])
+def webhook():
+    if request.method == "POST":
+        repo = git.Repo(".")
+        origin = repo.remotes.origin
+        origin.pull()
+        return 'Updated PythonAnywhere successfully', 200
+    else:
+        return 'Wrong type', 400
 
 @app.errorhandler(401)
 def unauthorized(e):
