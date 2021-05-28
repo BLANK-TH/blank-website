@@ -14,7 +14,8 @@ PASSWORD = getenv("PASSWORD")
 IMGUR_CLIENT = getenv("IMGUR_CLIENT")
 WEBHOOK_SECRET = getenv("WEBHOOK_SECRET")
 
-mongo_client = MongoClient(MDURL.format(PASSWORD))
+mongo_client = MongoClient(MDURL.format(PASSWORD), connectTimeoutMS=30000, socketTimeoutMS=None,
+                           socketKeepAlive=True, connect=False, maxPoolsize=1)
 
 def github_valid(signature, data):
     hash_algorithm, github_signature = signature.split('=', 1)
