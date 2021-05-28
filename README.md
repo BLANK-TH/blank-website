@@ -3,11 +3,7 @@ My website for various utilities, tools, and python applications. Some apps are 
 things may be quite random.
 
 ## Site
-[Main Site](https://blankdvth.pythonanywhere.com/) (Up [in Theory] 24/7)  
-[Mirror](https://blankdvth.herokuapp.com/) (Up 22 days/month)
-
-Everything between the two sites is synced, since the data is stored on a separate server. The difference between the
-sites is just the hosting service.
+[Link](https://blankdvth.pythonanywhere.com/) (Up [in Theory] 24/7)
 
 ## Status Page
 [Website Status](https://stats.uptimerobot.com/kMN9WSnl8x)  
