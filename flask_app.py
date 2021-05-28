@@ -50,7 +50,7 @@ def webhook():
             repo.git.reset('--hard')
         return 'Updated PythonAnywhere successfully', 200
     else:
-        return 'Wrong Request Type!', 400
+        abort(400)
 
 
 @app.errorhandler(401)
