@@ -6,13 +6,14 @@ import hashlib
 required = ["MONGO_URL","PASSWORD","IMGUR_CLIENT","WEBHOOK_SECRET"]
 for i in required:
     if i not in environ.keys():
-        print("Missing env value")
+        print("Missing env value " + i)
         exit()
 
 MDURL = getenv("MONGO_URL")
 PASSWORD = getenv("PASSWORD")
 IMGUR_CLIENT = getenv("IMGUR_CLIENT")
 WEBHOOK_SECRET = getenv("WEBHOOK_SECRET")
+print(WEBHOOK_SECRET)
 
 
 mongo_client = MongoClient(MDURL.format(PASSWORD))
