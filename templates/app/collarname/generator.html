@@ -43,6 +43,6 @@
         <p>Do <strong>NOT</strong> download the (below) preview image, it will not render properly as it's a cropped
         preview, instead, copy the already provided direct Imgur link right below it.</p>
         <img src="{{ simg }}" alt="Preview of Image"><br>
-        <div class="selectAllCode">{{ imgur_url }}</div>
+        <input onClick="this.select();" value="{{ imgur_url }}" style="width:70%" />
     {% endif %}
 {% endblock %}

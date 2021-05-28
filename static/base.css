@@ -36,12 +36,6 @@
     align-items: center; /* align vertical */
 }
 
-.selectAllCode {
-    border: 1px solid black;
-    background-color: #eee;
-    user-select: all;
-}
-
 .highlightBlock {
     border: 1px solid black;
     background-color: #eee;
