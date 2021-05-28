@@ -1,0 +1,1 @@
+from .collarname import collarname

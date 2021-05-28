@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect
-from subpages.apps.collarname import collarname
+from subpages.apps import *
 from pathlib import Path
 from os import getcwd
 
