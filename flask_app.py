@@ -83,6 +83,15 @@ def webhook():
         abort(400)
 
 
+@app.route("/create_all")
+def cr():
+    if "pswd" not in request.args or request.args["pswd"] != SQL_PASSWORD:
+        abort(403)
+    else:
+        db.create_all()
+        return 'Success', 200
+
+
 @app.route("/cat")
 def cat():
     rq = requests.get("https://thecatapi.com/api/images/get")
