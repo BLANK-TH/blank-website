@@ -39,13 +39,13 @@
             {% if rp is defined and i in rp.keys() %}
                 <o><a href="{{ ps.value }}"> {{ rp[i] }}</a> ></o>
             {% else %}
-                <o><a href="{{ ps.value }}"> {{ i.title().replace("-"," ") }}</a> ></o>
+                <o><a href="{{ ps.value }}"> {{ i.replace("-"," ").title() }}</a> ></o>
             {% endif %}
         {% endfor %}
         {% if rp is defined and sp[-1] in rp.keys() %}
             <o><a href="#"> {{ rp[sp[-1]] }}</a></o>
         {% else %}
-            <o><a href="#"> {{ sp[-1].title().replace("-"," ") }}</a></o>
+            <o><a href="#"> {{ sp[-1].replace("-"," ").title() }}</a></o>
         {% endif %}
         <hr>
     </header>
@@ -76,6 +76,8 @@
         Site by blank_dvth |
         <a href="mailto:webcontact@blankdvth.anonaddy.com">Contact</a> |
         <a href="/terms-of-service">Terms of Service</a> |
+        <a href="/privacy-policy">Privacy Policy</a> |
+        <a href="/cookie-policy">Cookie Policy</a> |
         <a href="https://github.com/BLANK-TH/blank-website/">GitHub</a> |
         <a href="https://stats.uptimerobot.com/kMN9WSnl8x">Website Status</a> |
         <a href="https://blankdvth.pagefate.com/">Incident Tracker</a> |

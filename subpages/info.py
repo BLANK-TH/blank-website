@@ -4,10 +4,16 @@ info = Blueprint("info", __name__, static_folder="static", template_folder="temp
 
 @info.route("/about")
 def about():
-    # TODO: Create about
     return render_template("info/about.html", pth="about")
 
 @info.route("terms-of-service")
 def tos():
-    # TODO: Create ToS
-    pass
+    return render_template("info/termsofservice.html", pth="terms-of-service")
+
+@info.route("privacy-policy")
+def privacy_policy():
+    return render_template("info/privacypolicy.html", pth="privacy-policy")
+
+@info.route("cookie-policy")
+def cookie_policy():
+    return render_template("info/cookiepolicy.html", pth="cookie-policy")
