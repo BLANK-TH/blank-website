@@ -4,7 +4,7 @@ from api_helper import github_valid
 
 import git
 import requests
-from flask import Flask, render_template, redirect, abort, send_from_directory, request
+from flask import Flask, render_template, redirect, abort, send_from_directory, request, flash
 
 import subpages
 
@@ -54,7 +54,12 @@ def webhook():
 
 @app.route("/cat")
 def cat():
-    return render_template("cat.html", pth="cat", uri=requests.get("https://thecatapi.com/api/images/get").url)
+    rq = requests.get("https://thecatapi.com/api/images/get")
+    if rq.ok:
+        return render_template("cat.html", pth="cat", uri=rq.url)
+    else:
+        flash("ಥ_ಥ I couldn't get a cat image", "error")
+        return redirect("/")
 
 
 @app.errorhandler(401)
