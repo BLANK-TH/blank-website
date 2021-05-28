@@ -1,5 +1,6 @@
 from os.path import join
 from secrets import token_urlsafe
+from api_helper import github_valid
 
 import git
 from flask import Flask, render_template, redirect, abort, send_from_directory, request
@@ -36,7 +37,10 @@ def fda():
 
 @app.route("/update_server", methods=["POST"])
 def webhook():
-    if request.method == "POST":
+    signature = request.headers.get('X-Hub-Signature')
+    if not github_valid(signature, request.data):
+        abort(403)
+    elif request.method == "POST":
         repo = git.Repo()
         origin = repo.remotes.origin
         origin.pull()

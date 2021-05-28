@@ -4,7 +4,6 @@ from textwrap import wrap
 from io import BytesIO
 from api_helper import IMGUR_CLIENT
 from requests import post
-from base64 import urlsafe_b64encode
 from os import getcwd
 
 collarname = Blueprint("collar-name", __name__, static_folder="static", template_folder="template")
