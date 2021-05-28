@@ -1,5 +1,6 @@
 # BLANK's Website
-My website for various utilities, tools, and python applications. 
+My website for various utilities, tools, and python applications. Some apps are requested by other people so certain
+things may be quite random.
 
 ## Site
 [Main Site](https://blankdvth.pythonanywhere.com/) (Up [in Theory] 24/7)
