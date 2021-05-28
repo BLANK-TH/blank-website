@@ -3,6 +3,7 @@ from secrets import token_urlsafe
 from api_helper import github_valid
 
 import git
+from git.exc import GitCommandError
 from flask import Flask, render_template, redirect, abort, send_from_directory, request
 
 import subpages
@@ -43,7 +44,10 @@ def webhook():
     elif request.method == "POST":
         repo = git.Repo()
         origin = repo.remotes.origin
-        origin.pull()
+        try:
+            origin.pull()
+        except git.GitCommandError:
+            repo.git.reset('--hard')
         return 'Updated PythonAnywhere successfully', 200
     else:
         return 'Wrong Request Type!', 400
