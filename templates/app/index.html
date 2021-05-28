@@ -1,4 +1,18 @@
 {% extends 'base.html' %}
 {% block title %}App Index{% endblock %}
 {% block body %}
+    <h1>Public Apps</h1>
+    <ul>
+        <li>None Yet</li>
+    </ul>
+    <h1>Private Apps</h1>
+    {% if private is defined %}
+        {% include private %}
+    {% else %}
+        <form action="#" method="post">
+            <label for="passphrase">Private Passphrase:</label>&nbsp;
+            <input type="password" id="passphrase" name="passphrase" style="width: 60%;"><br>
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
 {% endblock %}

@@ -20,6 +20,7 @@
         <option value="$MODULE_DIR$/templates/shortener" />
         <option value="$MODULE_DIR$/templates/errors" />
         <option value="$MODULE_DIR$/templates/app/collarname" />
+        <option value="$MODULE_DIR$/templates/app/privateindex" />
       </list>
     </option>
   </component>
