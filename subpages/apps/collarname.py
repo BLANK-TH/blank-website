@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, session
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from PIL import Image, ImageFont, ImageDraw
 from textwrap import wrap
 from io import BytesIO
@@ -71,15 +71,15 @@ def index():
             if rq.ok and rq2.ok:
                 fn = rq.json()["data"]["link"]
                 fn2 = rq2.json()["data"]["link"]
-                session["imgur_url"], session["simg"] = fn, fn2
-                return redirect(url_for("app.collar-name.index"))
+                return redirect(url_for("app.collar-name.index", imgur_url=fn, simg=fn2))
             else:
                 flash("Unable to upload to imgur, try again later", "error")
                 return redirect(request.url)
     else:
+        a = request.args
         return render_template('app/collarname/generator.html', pth="app/collar-name",
-                               imgur_url=session["imgur_url"] if "imgur_url" in session else None,
-                               simg=session["simg"] if "simg" in session else None)
+                               imgur_url=a["imgur_url"] if "imgur_url" in a else None,
+                               simg=a["simg"] if "simg" in a else None)
 
 @collarname.route("/tutorial")
 def tutorial():
