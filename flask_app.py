@@ -3,7 +3,7 @@ from secrets import token_urlsafe
 from api_helper import github_valid
 
 import git
-from git.exc import GitCommandError
+import requests
 from flask import Flask, render_template, redirect, abort, send_from_directory, request
 
 import subpages
@@ -50,6 +50,11 @@ def webhook():
         return 'Updated PythonAnywhere successfully', 200
     else:
         abort(400)
+
+
+@app.route("/cat")
+def cat():
+    return render_template("cat.html", pth="cat", uri=requests.get("https://thecatapi.com/api/images/get").url)
 
 
 @app.errorhandler(401)
