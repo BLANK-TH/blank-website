@@ -27,7 +27,7 @@ def index():
             img = Image.open(getcwd() + "/static/app/collarname/{}.png".format(f["imagebase"]))
             draw = ImageDraw.Draw(img)
 
-            font = ImageFont.truetype("consolas.ttf", size)
+            font = ImageFont.truetype("consola.ttf", size)
             w, h = font.getsize(name)
             char_width = font.getsize("W")[0]
             lines = []
