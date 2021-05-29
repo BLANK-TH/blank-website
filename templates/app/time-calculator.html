@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Timed Calculator{% endblock %}
+{% block body %}
+    <form action="#" method="post">
+        <input type="number" name="hour" max="22" value="0" style="width: 60px;" required>:<input type="number"
+                                                                                                  name="minute" max="59"
+                                                                                                  value="0"
+                                                                                                  style="width: 60px;"
+                                                                                                  required>:<input
+            type="number" name="second" max="59" value="0" style="width: 60px;" required>
+        <input type="submit" value="Calculate">
+    </form>
+    {% if data is defined %}
+        {% if "exact" in data %}
+            <hr>
+            <p>Target Time: <code>{{ data["time"] }}</code></p>
+            <p>Put exactly this amount of items in the dropper:</p>
+            <hr>
+            Multiplier (items):&nbsp;
+            <input onClick="this.select();" value="{{ data["exact"] }}" style="width:70%"/><br>
+            Multiplier (stacks):&nbsp;
+            <input onClick="this.select();" value="{{ data["exact"] / 64 }}" style="width:70%"/>
+            <hr>
+            <p>Results in: <code>{{ data["time"] }}</code></p>
+        {% else %}
+            <hr>
+            <p>Target Time: <code>{{ data["target"] }}</code></p>
+            <p>Put exactly this amount of items in the dropper:</p>
+            <hr>
+            Multiplier (items):&nbsp;
+            <input onClick="this.select();" value="{{ data["lower"] }}" style="width:70%"/><br>
+            Multiplier (stacks):&nbsp;
+            <input onClick="this.select();" value="{{ data["lower"] / 64 }}" style="width:70%"/>
+            <hr>
+            <p>Results in: <code>{{ data["lower_time"] }}</code></p>
+            <hr>
+            Multiplier (items):&nbsp;
+            <input onClick="this.select();" value="{{ data["higher"] }}" style="width:70%"/><br>
+            Multiplier (stacks):&nbsp;
+            <input onClick="this.select();" value="{{ data["higher"] / 64 }}" style="width:70%"/>
+            <hr>
+            <p>Results in: <code>{{ data["higher_time"] }}</code></p>
+        {% endif %}
+    {% endif %}
+{% endblock %}
