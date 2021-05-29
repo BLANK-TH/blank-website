@@ -19,26 +19,23 @@
             Multiplier (items):&nbsp;
             <input onClick="this.select();" value="{{ data["exact"] }}" style="width:70%"/><br>
             Multiplier (stacks):&nbsp;
-            <input onClick="this.select();" value="{{ data["exact"] / 64 }}" style="width:70%"/>
-            <hr>
+            <input onClick="this.select();" value="{{ data["exact"] / 64 }}" style="width:70%"/><br>
             <p>Results in: <code>{{ data["time"] }}</code></p>
         {% else %}
             <hr>
             <p>Target Time: <code>{{ data["target"] }}</code></p>
-            <p>Put exactly this amount of items in the dropper:</p>
+            <p>Can't get the exact time specified, instead find the closest times below (lower and higher):</p>
             <hr>
             Multiplier (items):&nbsp;
             <input onClick="this.select();" value="{{ data["lower"] }}" style="width:70%"/><br>
             Multiplier (stacks):&nbsp;
-            <input onClick="this.select();" value="{{ data["lower"] / 64 }}" style="width:70%"/>
-            <hr>
+            <input onClick="this.select();" value="{{ data["lower"] / 64 }}" style="width:70%"/><br>
             <p>Results in: <code>{{ data["lower_time"] }}</code></p>
             <hr>
             Multiplier (items):&nbsp;
             <input onClick="this.select();" value="{{ data["higher"] }}" style="width:70%"/><br>
             Multiplier (stacks):&nbsp;
-            <input onClick="this.select();" value="{{ data["higher"] / 64 }}" style="width:70%"/>
-            <hr>
+            <input onClick="this.select();" value="{{ data["higher"] / 64 }}" style="width:70%"/><br>
             <p>Results in: <code>{{ data["higher_time"] }}</code></p>
         {% endif %}
     {% endif %}
