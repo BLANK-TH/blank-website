@@ -47,7 +47,7 @@ def new():
         db.insert_one(short=short, long=f["long"], deletion_pin=del_pin)
         return redirect(url_for("shortener.new", short=short, pin=del_pin))
     else:
-        return render_template("shortener/new.html", pth="s", rp={"s":"Shortener"})
+        return render_template("shortener/new.html", rp={"s":"Shortener"})
 
 @shortener.route("/del/<sub>")
 @shortener.route("/delete/<sub>")

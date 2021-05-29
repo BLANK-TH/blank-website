@@ -38,11 +38,11 @@
         </div>
     </nav>
 {% endif %}
-{% if pth is defined %}
+{% if pth is undefined %}
     <header>
         <o><a href="/">Home</a> ></o>
         {% set ps = namespace(value="") %}
-        {% set sp = pth.split("/") %}
+        {% set sp = request.path.strip("/").split("/") %}
         {% for i in sp[:-1] %}
             {% set ps.value = ps.value + "/" + i %}
             {% if rp is defined and i in rp.keys() %}

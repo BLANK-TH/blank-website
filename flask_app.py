@@ -54,7 +54,7 @@ app.register_blueprint(subpages.shortener, url_prefix="/s")
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', pth=False)
 
 
 @app.route('/error/<code>')
@@ -111,7 +111,7 @@ def cat():
             p = True
             break
     if p and rq.ok:
-        return render_template("cat.html", pth="cat", uri=rq.url)
+        return render_template("cat.html", uri=rq.url)
     else:
         flash("ಥ_ಥ I couldn't get a cat image", "error")
         return redirect("/")

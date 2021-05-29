@@ -80,11 +80,11 @@ def index():
             return redirect(request.url)
     else:
         a = request.args
-        return render_template('app/collarname/generator.html', pth="app/collar-name",
+        return render_template('app/collarname/generator.html',
                                imgur_url=a["imgur_url"] if "imgur_url" in a else None,
                                simg=a["simg"] if "simg" in a else None)
 
 
 @collarname.route("/tutorial")
 def tutorial():
-    return render_template("app/collarname/tutorial.html", pth="app/collar-name/tutorial")
+    return render_template("app/collarname/tutorial.html")
