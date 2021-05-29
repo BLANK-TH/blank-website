@@ -17,7 +17,7 @@
             <p>Put exactly this amount of items in the dropper:</p>
             <hr>
             Multiplier (items): <code>{{ data["exact"] }}</code><br>
-            Multiplier (stacks):<code>{{ (data["exact"] / 64)|round(0,'floor')|int }} stacks
+            Multiplier (stacks): <code>{{ (data["exact"] / 64)|round(0,'floor')|int }} stacks
             and {{ data["exact"] - (data["exact"] / 64)|round(0,'floor')|int * 64 }} items</code><br>
             <p>Results in: <code>{{ data["time"] }}</code></p>
         {% else %}
@@ -26,12 +26,12 @@
             <p>Can't get the exact time specified, instead find the closest times below (lower and higher):</p>
             <hr>
             Multiplier (items): <code>{{ data["lower"] }}</code><br>
-            Multiplier (stacks):<code>{{ (data["lower"] / 64)|round(0,'floor')|int }} stacks
+            Multiplier (stacks): <code>{{ (data["lower"] / 64)|round(0,'floor')|int }} stacks
             and {{ data["lower"] - (data["lower"] / 64)|round(0,'floor')|int * 64 }}</code><br>
             <p>Results in: <code>{{ data["lower_time"] }}</code></p>
             <hr>
             Multiplier (items): <code>{{ data["higher"] }}</code><br>
-            Multiplier (stacks):<code>{{ (data["lower"] / 64)|round(0,'floor')|int }} stacks
+            Multiplier (stacks): <code>{{ (data["lower"] / 64)|round(0,'floor')|int }} stacks
             and {{ data["higher"] - (data["higher"] / 64)|round(0,'floor')|int * 64 }}</code><br>
             <p>Results in: <code>{{ data["higher_time"] }}</code></p>
         {% endif %}
