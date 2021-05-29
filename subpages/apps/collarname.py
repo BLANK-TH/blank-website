@@ -31,7 +31,7 @@ def index():
         name, size, xpadding, ypadding = f["nametext"], int(f["fsize"]), int(f["xpad"]), int(f["ypad"])
         draw = ImageDraw.Draw(img)
 
-        font = ImageFont.truetype(getcwd() + "/static/Consolas.ttf", size)
+        font = ImageFont.truetype(getcwd() + "/static/fonts/Consolas.ttf", size)
         w, h = font.getsize(name)
         char_width = font.getsize("W")[0]
         lines = []
