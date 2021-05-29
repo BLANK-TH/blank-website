@@ -3,7 +3,7 @@ from os import getcwd
 from textwrap import wrap
 
 from PIL import Image, ImageFont, ImageDraw
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, abort
 from requests import post
 
 from api_helper import IMGUR_CLIENT
@@ -41,14 +41,13 @@ def index():
             for line in wrap(name, width=(MAX_WIDTH - xpadding * 2) // char_width):
                 i, j = font.getsize(line)
                 if i > MAX_WIDTH:
-                    print("Error in wrapping", i, MAX_WIDTH, (MAX_WIDTH - xpadding * 2) // char_width)
-                    exit()
+                    return "Error in Mapping", 500
                 h += j + ypadding
                 lines.append(line)
             xpadding = 0
         if h + ypadding * 2 > MAX_HEIGHT:
-            print("too tall")
-            exit()
+            flash("Text Too Long, try shortening it or decreasing the font size.", "warning")
+            return redirect(request.url)
 
         dims = [(MID_ORIGIN - (w / 2) - xpadding, TOP_ORIGIN),
                 (MID_ORIGIN + (w / 2) + xpadding, TOP_ORIGIN + h + ypadding * 2)]
