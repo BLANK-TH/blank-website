@@ -43,7 +43,7 @@ def time_calculator():
             flash("Time too large", 'warning')
             return redirect(request.url)
         elif cm.is_integer():
-            return render_template("app/time-calculator.html", data={"exact": cm,
+            return render_template("app/time-calculator.html", data={"exact": int(cm),
                                                                      "time": str(timedelta(seconds=seconds))})
         else:
             lower = floor(cm)
