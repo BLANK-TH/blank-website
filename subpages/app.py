@@ -39,7 +39,9 @@ def time_calculator():
             return redirect(request.url)
         cm = (seconds - 128) / 256
         cm += 1
-        if cm.is_integer():
+        if ceil(cm) > 320:
+            flash("Time too large", 'warning')
+        elif cm.is_integer():
             return render_template("app/time-calculator.html", data={"exact": cm,
                                                                      "time": str(timedelta(seconds=seconds))})
         else:
