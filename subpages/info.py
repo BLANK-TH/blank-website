@@ -6,8 +6,7 @@ info = Blueprint("info", __name__, static_folder="static", template_folder="temp
 def about():
     return render_template("info/about.html", pth="about")
 
-@info.route("/about/blank")
-@info.route("/about/blank_dvth")
+@info.route("/aboutblank")
 def aboutblank():
     return '<p style="color:white">Get it? About BLANK? about:blank?</p>'
 
