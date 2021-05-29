@@ -39,4 +39,7 @@
 .highlightBlock {
     border: 1px solid black;
     background-color: #eee;
+    font-family: monospace, monospace;
+    padding-left:3px;
+    padding-right:3px;
 }

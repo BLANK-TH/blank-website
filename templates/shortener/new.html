@@ -10,6 +10,10 @@
     </form>
     {% if pin is defined %}
         <hr>
+        <label for="shortened_url">Shortened URL:</label>
+        <input onClick="this.select();" id="shortened_url"
+               value="{{ request.url_root[:-1] }}{{ url_for("shortener.rdr", sub=short) }}"
+               style="width:70%" /><br>
         <label for="deletion_url">Deletion URL:</label>
         <input onClick="this.select();" id="deletion_url"
                value="{{ request.url_root[:-1] }}{{ url_for("shortener.delete", sub=short, pin=pin) }}"

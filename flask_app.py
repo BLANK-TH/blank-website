@@ -1,6 +1,5 @@
 from os.path import join
 from secrets import token_urlsafe
-from api_helper import github_valid, SQL_USERNAME, SQL_PASSWORD, SQL_URI, SQL_HOSTNAME
 
 import git
 import requests
@@ -8,6 +7,7 @@ from flask import Flask, render_template, redirect, abort, send_from_directory, 
 from flask_sqlalchemy import SQLAlchemy
 
 import subpages
+from api_helper import github_valid, SQL_USERNAME, SQL_PASSWORD, SQL_URI, SQL_HOSTNAME
 
 app = Flask(__name__)
 app.secret_key = token_urlsafe(32)
@@ -17,6 +17,24 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 app.config["db"] = db
 
+
+class CuspDatabase(object):
+    def __init__(self, model):
+        self.model = model
+
+    def first_filter(self, *args, **kwargs):
+        return self.model.query.filter_by(*args, **kwargs).first()
+
+    def insert_one(self, *args, **kwargs):
+        q = self.model(*args, **kwargs)
+        db.session.add(q)
+        db.session.commit()
+
+    def delete_one(self, *args, **kwargs):
+        db.session.delete(*args, **kwargs)
+        db.session.commit()
+
+
 def setup_shortened_db(db):
     class Shortened(db.Model):
         id = db.Column(db.Integer, primary_key=True)
@@ -24,20 +42,7 @@ def setup_shortened_db(db):
         long = db.Column(db.VARCHAR(200), nullable=False)
         deletion_pin = db.Column(db.Integer, nullable=False)
 
-    class ShortenedDB(object):
-        def first_filter(self, *args, **kwargs):
-            return Shortened.query.filter_by(*args, **kwargs).first()
-
-        def insert_one(self, *args, **kwargs):
-            q = Shortened(*args, **kwargs)
-            db.session.add(q)
-            db.session.commit()
-
-        def delete_one(self, *args, **kwargs):
-            db.session.delete(*args, **kwargs)
-            db.session.commit()
-
-    return ShortenedDB()
+    return CuspDatabase(Shortened)
 
 
 app.config["shortened.db"] = setup_shortened_db(db)
@@ -45,6 +50,7 @@ app.config["shortened.db"] = setup_shortened_db(db)
 app.register_blueprint(subpages.info, url_prefix="")
 app.register_blueprint(subpages.app, url_prefix="/app")
 app.register_blueprint(subpages.shortener, url_prefix="/s")
+
 
 @app.route('/')
 def index():

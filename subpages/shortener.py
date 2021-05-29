@@ -19,7 +19,7 @@ def new():
     a = request.args
     if "short" in a and "pin" in a:
         short = a["short"]
-        flash(Markup("Success, alias&nbsp;<a href=\"{}\">{}</a>&nbsp;created".format(request.url_root + "s/" + short,
+        flash(Markup("Success, alias&nbsp;<span class='highlightBlock'><a href=\"{}\">{}</a></span>&nbsp;created".format(request.url_root + "s/" + short,
                                                                                      short)), "info")
         return render_template("shortener/new.html", short=short, pin=a["pin"])
     elif request.method == "POST":
