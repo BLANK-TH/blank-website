@@ -100,8 +100,17 @@ def cr():
 
 @app.route("/cat")
 def cat():
-    rq = requests.get("https://thecatapi.com/api/images/get")
-    if rq.ok:
+    tc = 1
+    p = False
+    while tc <= 5:
+        try:
+            rq = requests.get("https://thecatapi.com/api/images/get")
+        except:
+            tc += 1
+        else:
+            p = True
+            break
+    if p and rq.ok:
         return render_template("cat.html", pth="cat", uri=rq.url)
     else:
         flash("ಥ_ಥ I couldn't get a cat image", "error")
