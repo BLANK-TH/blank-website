@@ -41,6 +41,7 @@ def time_calculator():
         cm += 1
         if ceil(cm) > 320:
             flash("Time too large", 'warning')
+            return redirect(request.url)
         elif cm.is_integer():
             return render_template("app/time-calculator.html", data={"exact": cm,
                                                                      "time": str(timedelta(seconds=seconds))})
