@@ -12,7 +12,7 @@ def index():
         p = request.args["catpass"]
         if not (Path(getcwd() + "/templates/app/privateindex") / (p + ".html")).is_file() or "/" in p:
             flash("Invalid Passphrase", 'warning')
-            return redirect(request.url)
+            return redirect(url_for("app.index"))
         return render_template("app/index.html", pth="app", rp={"app": "Apps"}, private="app/privateindex/{}.html"
                                .format(p))
     elif request.method == "POST":
