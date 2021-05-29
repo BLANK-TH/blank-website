@@ -85,6 +85,52 @@ def index():
                                simg=a["simg"] if "simg" in a else None)
 
 
+@collarname.route("/elina", methods=["POST", "GET"])
+def elina():
+    if request.method == "POST":
+        f = request.form
+        img = Image.open(getcwd() + "/static/app/collarname/elina.png")
+        MID_ORIGIN, TOP_ORIGIN, MAX_HEIGHT, MAX_WIDTH = int(f["midorigin"]), int(f["toporigin"]), \
+                                                        int(f["maxheight"]), int(f["maxwidth"])
+        name, size, xpadding, ypadding = f["nametext"], int(f["fsize"]), int(f["xpad"]), int(f["ypad"])
+        draw = ImageDraw.Draw(img)
+
+        font = ImageFont.truetype(getcwd() + "/static/fonts/BITCBLKAD.ttf", size)
+        w, h = font.getsize(name)
+        if w + xpadding * 2 > MAX_WIDTH or h + ypadding * 2 > MAX_HEIGHT:
+            flash("Text Too Long, try shortening it or decreasing the font size.", "warning")
+            return redirect(request.url)
+
+        draw.text((MID_ORIGIN, TOP_ORIGIN + ypadding), name, fill="black",
+                  font=font, anchor="mm")
+
+        buf = BytesIO()
+        img.save(buf, format="PNG")
+        rq = post("https://api.imgur.com/3/upload.json", data={"image": buf.getvalue()},
+                  headers={"Authorization": 'Client-ID ' + IMGUR_CLIENT})
+        cropped = img.crop((330, 255, 437, 344))
+        cropped_buf = BytesIO()
+        cropped.save(cropped_buf, format="PNG")
+        rq2 = post("https://api.imgur.com/3/upload.json", data={"image": cropped_buf.getvalue()},
+                   headers={"Authorization": 'Client-ID ' + IMGUR_CLIENT})
+        if rq.ok and rq2.ok:
+            fn = rq.json()["data"]["link"]
+            fn2 = rq2.json()["data"]["link"]
+            return redirect(url_for("app.collar-name.elina", imgur_url=fn, simg=fn2))
+        else:
+            flash("Unable to upload to imgur, try again later", "error")
+            return redirect(request.url)
+    else:
+        a = request.args
+        return render_template('app/collarname/generator-elina.html',
+                               imgur_url=a["imgur_url"] if "imgur_url" in a else None,
+                               simg=a["simg"] if "simg" in a else None)
+
+
 @collarname.route("/tutorial")
 def tutorial():
     return render_template("app/collarname/tutorial.html")
+
+@collarname.route("/tutorial/elina")
+def tutorial_elina():
+    return render_template("app/collarname/tutorial-elina.html")

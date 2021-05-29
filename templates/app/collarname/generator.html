@@ -2,7 +2,8 @@
 {% block title %}Collar Name Generator{% endblock %}
 {% block body %}
     <h1>Collar Name Tag</h1>
-    <i><a href="tutorial">Tutorial</a></i>
+    <i><a href="tutorial/elena">Tutorial</a> |
+    <a href="elina">Elina's Version</a></i>
     <h2>Generator</h2>
     <form action="#" method="post" enctype="multipart/form-data">
         <h3>Model Type</h3>
@@ -42,7 +43,7 @@
         <h2>Result</h2>
         <p>Do <strong>NOT</strong> download the (below) preview image, it will not render properly as it's a cropped
         preview, instead, copy the already provided direct Imgur link right below it.</p>
-        <img src="{{ simg }}" alt="Preview of Image" style="width: 15%"><br>
+        <img src="{{ simg }}" alt="Preview of Image" style="width: 15%"><br><br>
         <input onClick="this.select();" value="{{ imgur_url }}" style="width:70%" />
     {% endif %}
 {% endblock %}

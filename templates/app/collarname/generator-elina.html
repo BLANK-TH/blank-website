@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Collar Name Generator{% endblock %}
+{% block body %}
+    <h1>Collar Name Tag</h1>
+    <i><a href="tutorial/elena">Tutorial</a> |
+    <a href="{{ url_for("app.collar-name.index") }}">Base Version</a></i>
+    <h2>Generator</h2>
+    <form action="#" method="post" enctype="multipart/form-data">
+        <h3>Config</h3>
+        <label for="text">Name Tag Text</label>
+        <input type="text" id="text" name="nametext" value="I'm cute!" style="width:70%;" required><br>
+        <label for="fsize">Font Size</label>
+        <input type="number" id="fsize" name="fsize" min="1" max="15" value="15" step="1" style="width:45px;" required><br>
+        <input type="submit" value="Submit">
+        <hr>
+        <h3>Advanced Config</h3>
+        <p>Don't edit unless you know what you're doing!</p>
+        <label for="midorigin">Mid Origin</label>
+        <input type="number" id="midorigin" name="midorigin" value="383" step="1" style="width:54px;" required><br>
+        <label for="toporigin">Top Origin</label>
+        <input type="number" id="toporigin" name="toporigin" value="333" step="1" style="width:54px;" required><br>
+        <label for="maxheight">Max Height</label>
+        <input type="number" id="maxheight" name="maxheight" value="18" step="1" style="width:54px;" required><br>
+        <label for="maxwidth">Max Width</label>
+        <input type="number" id="maxwidth" name="maxwidth" value="75" step="1" style="width:54px;" required><br>
+        <label for="xpad">X Padding</label>
+        <input type="number" id="xpad" name="xpad" min="0" max="100" value="0" step="1" style="width:45px;" required><br>
+        <label for="ypad">Y Padding</label>
+        <input type="number" id="ypad" name="ypad" min="0" max="100" value="2" step="1" style="width:45px;" required><br>
+    </form>
+    {% if imgur_url is not none and simg is not none %}
+        <hr>
+        <h2>Result</h2>
+        <p>Do <strong>NOT</strong> download the (below) preview image, it will not render properly as it's a cropped
+        preview, instead, copy the already provided direct Imgur link right below it.</p>
+        <img src="{{ simg }}" alt="Preview of Image" style="width: 15%"><br><br>
+        <input onClick="this.select();" value="{{ imgur_url }}" style="width:70%" />
+    {% endif %}
+{% endblock %}
