@@ -1,10 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Tutorial - CN{% endblock %}
+{% block body %}
+    <h1 id="tutorial-collar-name-tag-generator">Tutorial - Collar Name Tag Generator</h1>
+    <h2 id="config-description">Config Description</h2>
+    <p>All of the config boxes are already pre-filled with a default value to help you along.</p>
+    <h3 id="model-type">Model Type</h3>
+    <ul>
+        <li><strong><em>Base Model:</em></strong> Default base collar model</li>
+        <li><strong><em>Shock Model:</em></strong> Default shock collar model</li>
+        <li><strong><em>Custom:</em></strong> Specify a custom image to add a name tag to. If the collar location (in
+            pixels) isn&#39;t the exact same as the base models, you&#39;ll need to manually edit it in the <a
+                    href="#advanced-config">advanced section</a></li>
+    </ul>
+    <h3 id="custom-file">Custom File</h3>
+    <p>Specify a file if you selected the custom model type</p>
+    <h3 id="config">Config</h3>
+    <ul>
+        <li><strong><em>Name Tag Text:</em></strong> Text to display on the name tag</li>
+        <li><strong><em>Font Size:</em></strong> Size of the font (Consolas Monospace) to use for the text, the more
+            text you have, the smaller this needs to be (just go through trial and error)
+        </li>
+        <li><strong><em>X Padding:</em></strong> Padding between the text and background box borders on the X (width)
+            axis
+        </li>
+        <li><strong><em>Y Padding:</em></strong> Padding between the text and background box borders on the Y (height)
+            axis
+        </li>
+    </ul>
+    <h3 id="advanced-config">Advanced Config</h3>
+    <p>If you aren&#39;t using a custom model or have an explicit reason for adjusting these values, I recommend you don&#39;t.</p>
+    <p>The best way to get the pixel/location values for the image is to open it up in Microsoft Paint, hover over the
+        point you want it to be with your mouse and look in the bottom left corner for the X and Y values.</p>
+    <ul>
+        <li><strong><em>Mid Origin:</em></strong> X value for the middle of the collar</li>
+        <li><strong><em>Top Origin:</em></strong> Y value for the bottom of the collar/top of where you want the name
+            tag to start
+        </li>
+        <li><strong><em>Max Height:</em></strong> Maximum height in pixels that the name tag can be</li>
+        <li><strong><em>Max Width:</em></strong> Maximum width in pixels that the name tag can be</li>
+    </ul>
+    <h2 id="result">Result</h2>
+    <p>After you click submit on the form, a new section will appear below it with a Heading called <code>Result</code>.
+        It&#39;ll contain a cropped preview image of the collar model and name tag so you can edit the values to your
+        liking and an Imgur link which you can use to attach the full texture.</p>
 
-</body>
-</html>
+{% endblock %}

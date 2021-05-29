@@ -20,6 +20,7 @@ def index():
             if ctmimg.filename[-4:].lower() != ".png":
                 flash("Custom file must be a PNG", "warning")
                 return redirect(request.url)
+            # TODO: Create code for custom image
         else:
             MID_ORIGIN, TOP_ORIGIN, MAX_HEIGHT, MAX_WIDTH = int(f["midorigin"]), int(f["toporigin"]), \
                                                             int(f["maxheight"]), int(f["maxwidth"])
@@ -83,8 +84,4 @@ def index():
 
 @collarname.route("/tutorial")
 def tutorial():
-    pass
-
-@collarname.route("/faq")
-def faq():
-    pass
+    return render_template("app/collarname/tutorial.html", pth="app/collar-name/tutorial")
