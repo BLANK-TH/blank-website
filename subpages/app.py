@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from subpages.apps import *
 from pathlib import Path
 from os import getcwd
@@ -10,12 +10,12 @@ app.register_blueprint(collarname, url_prefix="/collar-name")
 def index():
     if "catpass" in request.args:
         p = request.args["catpass"]
+        if not (Path(getcwd() + "/templates/app/privateindex") / (p + ".html")).is_file() or "/" in p:
+            flash("Invalid Passphrase", 'warning')
+            return redirect(request.url)
+        return render_template("app/index.html", pth="app", rp={"app": "Apps"}, private="app/privateindex/{}.html"
+                               .format(p))
     elif request.method == "POST":
-        p = request.form["passphrase"]
+        return redirect(url_for("app.index", catpass=request.form["passphrase"]))
     else:
         return render_template("app/index.html", pth="app", rp={"app":"Apps"})
-    if not (Path(getcwd() + "/templates/app/privateindex") / (p + ".html")).is_file() or "/" in p:
-        flash("Invalid Passphrase", 'warning')
-        return redirect(request.url)
-    return render_template("app/index.html", pth="app", rp={"app": "Apps"}, private="app/privateindex/{}.html"
-                           .format(p))
