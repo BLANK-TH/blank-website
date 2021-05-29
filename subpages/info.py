@@ -8,7 +8,8 @@ def about():
 
 @info.route("/aboutblank")
 def aboutblank():
-    return '<p style="color:white">Get it? About BLANK? about:blank?</p>'
+    return '<p style="color: white;"> Get it? About BLANK? about:blank?</p><br><br><p style="color: white;"> The dark' \
+           ' reader extension breaks this effect (white on white text)</p>'
 
 @info.route("terms-of-service")
 def tos():
