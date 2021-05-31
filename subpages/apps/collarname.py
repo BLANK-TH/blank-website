@@ -51,16 +51,16 @@ def index():
 
         dims = [(MID_ORIGIN - (w / 2) - xpadding, TOP_ORIGIN),
                 (MID_ORIGIN + (w / 2) + xpadding, TOP_ORIGIN + h + ypadding * 2)]
-        draw.rectangle(dims, fill="#5d451b")
+        draw.rectangle(dims, fill=f["bcolour"])
 
         if len(lines) < 2:
-            draw.text((MID_ORIGIN, TOP_ORIGIN + ypadding), name, fill="black",
+            draw.text((MID_ORIGIN, TOP_ORIGIN + ypadding), name, fill=f["fcolour"],
                       font=font, anchor="mt")
         else:
             offset = font.getsize(name)[1] + ypadding * 2
             y = TOP_ORIGIN + ypadding
             for i in lines:
-                draw.text((MID_ORIGIN, y), i, fill="black", font=font, anchor="mt")
+                draw.text((MID_ORIGIN, y), i, fill=f["fcolour"], font=font, anchor="mt")
                 y += offset
         buf = BytesIO()
         img.save(buf, format="PNG")
@@ -101,7 +101,7 @@ def elina():
             flash("Text Too Long, try shortening it or decreasing the font size.", "warning")
             return redirect(request.url)
 
-        draw.text((MID_ORIGIN, TOP_ORIGIN + ypadding), name, fill="black",
+        draw.text((MID_ORIGIN, TOP_ORIGIN + ypadding), name, fill=f["fcolour"],
                   font=font, anchor="mm")
 
         buf = BytesIO()
