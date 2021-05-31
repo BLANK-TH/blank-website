@@ -3,12 +3,38 @@ from os import getcwd
 from textwrap import wrap
 
 from PIL import Image, ImageFont, ImageDraw
-from flask import Blueprint, render_template, redirect, url_for, request, flash, abort
+from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from requests import post
 
 from api_helper import IMGUR_CLIENT
 
 collarname = Blueprint("collar-name", __name__, static_folder="static", template_folder="template")
+
+default_values = {
+    "normal": {
+        "nametext": "I'm cute!",
+        "fsize": "10",
+        "fcolour": "#000000",
+        "bcolour": "#5d451b",
+        "xpad": "2",
+        "ypad": "2",
+        "midorigin": "287",
+        "toporigin": "258",
+        "maxheight": "125",
+        "maxwidth": "94"
+    },
+    "elina": {
+        "nametext": "I'm cute!",
+        "fsize": "15",
+        "fcolour": "#908989",
+        "midorigin": "383",
+        "toporigin": "333",
+        "maxheight": "18",
+        "maxwidth": "75",
+        "xpad": "0",
+        "ypad": "2",
+    }
+}
 
 
 @collarname.route("/", methods=["POST", "GET"])
@@ -26,6 +52,7 @@ def index():
             img = Image.open(request.files["customfile"].stream)
         else:
             img = Image.open(getcwd() + "/static/app/collarname/{}.png".format(f["imagebase"]))
+        session["cnnpastform"] = request.form
         MID_ORIGIN, TOP_ORIGIN, MAX_HEIGHT, MAX_WIDTH = int(f["midorigin"]), int(f["toporigin"]), \
                                                         int(f["maxheight"]), int(f["maxwidth"])
         name, size, xpadding, ypadding = f["nametext"], int(f["fsize"]), int(f["xpad"]), int(f["ypad"])
@@ -82,13 +109,16 @@ def index():
         a = request.args
         return render_template('app/collarname/generator.html',
                                imgur_url=a["imgur_url"] if "imgur_url" in a else None,
-                               simg=a["simg"] if "simg" in a else None)
+                               simg=a["simg"] if "simg" in a else None,
+                               pastvalues=session.pop("cnnpastform") if "cnnpastform" in session else default_values[
+                                   "normal"])
 
 
 @collarname.route("/elina", methods=["POST", "GET"])
 def elina():
     if request.method == "POST":
         f = request.form
+        session["cnepastform"] = request.form
         img = Image.open(getcwd() + "/static/app/collarname/elina.png")
         MID_ORIGIN, TOP_ORIGIN, MAX_HEIGHT, MAX_WIDTH = int(f["midorigin"]), int(f["toporigin"]), \
                                                         int(f["maxheight"]), int(f["maxwidth"])
@@ -124,12 +154,15 @@ def elina():
         a = request.args
         return render_template('app/collarname/generator-elina.html',
                                imgur_url=a["imgur_url"] if "imgur_url" in a else None,
-                               simg=a["simg"] if "simg" in a else None)
+                               simg=a["simg"] if "simg" in a else None,
+                               pastvalues=session.pop("cnepastform") if "cnepastform" in session else default_values[
+                                   "elina"])
 
 
 @collarname.route("/tutorial")
 def tutorial():
     return render_template("app/collarname/tutorial.html")
+
 
 @collarname.route("/tutorial/elina")
 def tutorial_elina():
