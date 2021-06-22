@@ -11,7 +11,7 @@
         <input type="submit" value="Calculate">
     </form>
     {% if data is defined %}
-        {% if "exact" in data.keys() %}
+        {% if "exact" in data %}
             <hr>
             <p>Target Time: <code>{{ data["time"] }}</code></p>
             <p>Put exactly this amount of items in the dropper:</p>
