@@ -49,7 +49,7 @@ def time_calculator():
             lower = floor(cm)
             higher = ceil(cm)
             return render_template("app/time-calculator.html",
-                                   data={"lower": lower, "higher": higher, "lower_time": str(timedelta(seconds=lower)),
+                                   data={"lower": lower, "higher": higher, "lower_time": str(timedelta(seconds=seconds)),
                                          "higher_time": time_calc(higher), "target": str(timedelta(seconds=seconds))})
     else:
         return render_template("app/time-calculator.html")
