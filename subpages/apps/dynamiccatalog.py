@@ -95,7 +95,9 @@ def fltr():
         if not request.method == "POST" and not fltrd:
             return render_template("app/dynamiccatalog/filter.html")
         return render_template("app/dynamiccatalog/filter_results.html",
-                               textures=query.order_by(db.model.id.desc()).all())
+                               textures=query.order_by(db.model.id.desc()).all(), fltr_u=url_for(
+                "app.dynamic_catalog.fltr", **{i:j for i,j in f.items()
+                                               if len(j.strip()) > 0 and not (i == "type" and j == "None")}))
     else:
         return render_template("app/dynamiccatalog/filter.html")
 

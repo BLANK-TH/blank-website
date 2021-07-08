@@ -49,6 +49,9 @@
         <strong><i>No results.</i></strong>
     {% endif %}
     <hr>
+    This link allows easy access to the results of this filter:
+    <input onClick="this.select();" value="{{ request.url_root[:-1] }}{{ fltr_u }}" style="width:70%" />
+    <hr>
     <h2>Disclaimer</h2>
     <strong>TL;DR</strong> This site is provided for free, and I take no liability for any loss of data stored on this
     site. You are responsible for properly backing up your data.
