@@ -21,16 +21,23 @@
             </tr>
             <tbody>
             {% for texture in textures.items %}
-                <th scope="row" style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.id }}</th>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.author }}</td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.type }}</td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;"><a href="{{ texture.url }}" target="_blank">{{ texture.url }}</a></td>
-                {% if texture.preview is none %}
-                    <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;"><img src="{{ texture.url }}" width="50" alt="Preview"></td>
-                {% else %}
-                    <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;"><img src="{{ texture.preview }}" width="50" alt="Preview"></td>
-                {% endif %}
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.notes }}</td>
+                <tr>
+                    <th scope="row"
+                        style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.id }}</th>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.author }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.type }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;"><a href="{{ texture.url }}"
+                                                                                              target="_blank">{{ texture.url }}</a>
+                    </td>
+                    {% if texture.preview is none %}
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;"><img
+                                src="{{ texture.url }}" width="50" alt="Preview"></td>
+                    {% else %}
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;"><img
+                                src="{{ texture.preview }}" width="50" alt="Preview"></td>
+                    {% endif %}
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.notes }}</td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>
