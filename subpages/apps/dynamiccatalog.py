@@ -72,18 +72,28 @@ def add():
 
 @dynamiccatalog.route("/filter", methods=["POST", "GET"])
 def fltr():
-    if request.method == "POST":
+    if request.method == "POST" or len(request.args) > 0:
         db = current_app.config["dyn.db"]
-        f = request.form
+        if request.method == "POST":
+            f = request.form
+        else:
+            f = request.args
         query = db.model.query
-        if len(f["id"].strip()) > 0:
+        fltrd = False
+        if "id" in f and len(f["id"].strip()) > 0:
             query = query.filter_by(id=f["id"])
-        if len(f["author"].strip()) > 0:
+            fltrd = True
+        if "author" in f and len(f["author"].strip()) > 0:
             query = query.filter(db.model.author.contains(f["author"]))
-        if f["type"] != "None":
+            fltrd = True
+        if "type" in f and f["type"] != "None":
             query = query.filter_by(type=f["type"])
-        if len(f["notes"].strip()) > 0:
+            fltrd = True
+        if "notes" in f and len(f["notes"].strip()) > 0:
             query = query.filter(db.model.notes.contains(f["notes"]))
+            fltrd = True
+        if not request.method == "POST" and not fltrd:
+            return render_template("app/dynamiccatalog/filter.html")
         return render_template("app/dynamiccatalog/filter_results.html",
                                textures=query.order_by(db.model.id.desc()).all())
     else:

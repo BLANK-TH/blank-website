@@ -22,7 +22,8 @@
             {% for texture in textures.items %}
                 <tr>
                     <th scope="row"
-                        style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.id }}</th>
+                        style="border: 1px solid #dddddd; text-align: left; padding: 4px;">
+                        <a href="{{ url_for("app.dynamic_catalog.fltr", id=texture.id) }}">{{ texture.id }}</a></th>
                     <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.author }}</td>
                     <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.type }}</td>
                     <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;"><a href="{{ texture.url }}"
