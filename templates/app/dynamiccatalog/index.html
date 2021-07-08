@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Dynamic Res Catalog{% endblock %}
+{% block body %}
+    <h1>Dynamic Restraint Catalog</h1>
+    <i>Thanks to all of the wonderful people who created these dynamic textures!
+        <a href="{{ url_for("app.dynamic_catalog.add") }}">Click here to add your own.</a></i>
+    <hr>
+    <form action="search" method="post">
+        <input type="query" placeholder="Search" style="width:80%;">
+        <input type="submit" value="Search" style="width:15%;">
+    </form><br>
+    <div>
+        <table style="width: 100%;">
+            <tr>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 4px;">ID</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 4px;">Author</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 4px;">Type</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 4px;">URL</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 4px;">Preview</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 4px;">Notes</th>
+            </tr>
+            <tbody>
+            {% for texture in textures.items %}
+                <th scope="row" style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.id }}</th>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.author }}</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.type }}</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;"><a href="{{ texture.url }}" target="_blank">{{ texture.url }}</a></td>
+                {% if texture.preview is none %}
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;"><img src="{{ texture.url }}" width="50" alt="Preview"></td>
+                {% else %}
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;"><img src="{{ texture.preview }}" width="50" alt="Preview"></td>
+                {% endif %}
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ texture.notes }}</td>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div style="float: right;">
+        <a href="{{ url_for('app.dynamic_catalog.index', page=textures.prev_num) }}"
+           class="btn btn-outline-dark
+       {% if textures.page == 1 %}disabled{% endif %}">
+            &laquo;
+        </a><!-- Loop through the number of pages to display a link for each-->
+        {% for page_num in textures.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+                <!-- Check for the active page and set the link to "Active"-->
+                {% if textures.page == page_num %}
+                    <a href="{{ url_for('app.dynamic_catalog.index', page=page_num) }}"
+                       class="btn btn-dark">
+                        {{ page_num }}
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('app.dynamic_catalog.index', page=page_num) }}"
+                       class="btn btn-outline-dark">
+                        {{ page_num }}
+                    </a>
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %} <a href="{{ url_for('app.dynamic_catalog.index', page=textures.next_num) }}"
+                        class="btn btn-outline-dark
+       {% if textures.page == textures.pages %}disabled{% endif %}">
+        &raquo;
+    </a>
+    </div>
+    <p>
+        Showing page {{ textures.page }} of {{ textures.pages }}
+    </p>
+    <hr>
+    <h2>Disclaimer</h2>
+    <strong>TL;DR</strong> This site is provided for free, and I take no liability for any loss of data stored on this
+    site. You are responsible for properly backing up your data.
+    <details>
+        <summary>Copy Pasted Legal Mumbo Jumbo</summary>
+        THE SERVICE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+        IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+        OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+        ARISING FROM, OUT OF OR IN CONNECTION WITH THE SERVICE OR THE USE OR
+        OTHER DEALINGS IN THE SERVICE.
+    </details>
+{% endblock %}

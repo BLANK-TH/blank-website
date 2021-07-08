@@ -21,6 +21,7 @@
         <option value="$MODULE_DIR$/templates/errors" />
         <option value="$MODULE_DIR$/templates/app/collarname" />
         <option value="$MODULE_DIR$/templates/app/privateindex" />
+        <option value="$MODULE_DIR$/templates/app/dynamiccatalog" />
       </list>
     </option>
   </component>

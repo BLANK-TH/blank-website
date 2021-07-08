@@ -25,6 +25,24 @@ class CuspDatabase(object):
     def first_filter(self, *args, **kwargs):
         return self.model.query.filter_by(*args, **kwargs).first()
 
+    def few_filter(self, limit, *args, **kwargs):
+        return self.model.query.filter_by(*args, **kwargs).limit(limit).all()
+
+    def all_filter(self, *args, **kwargs):
+        return self.model.query.filter_by(*args, **kwargs).all()
+
+    def get_all(self):
+        return self.model.query.all()
+
+    def most_recent(self):
+        return self.model.query.order_by(self.model.id.desc()).first()
+
+    def recent_few(self, limit):
+        return self.model.query.order_by(self.model.id.desc()).limit(limit).all()
+
+    def first_recent_filter(self, *args, **kwargs):
+        return self.model.query.filter_by(*args, **kwargs).order_by(self.model.id.desc()).first()
+
     def insert_one(self, *args, **kwargs):
         q = self.model(*args, **kwargs)
         db.session.add(q)
@@ -32,6 +50,9 @@ class CuspDatabase(object):
 
     def delete_one(self, *args, **kwargs):
         db.session.delete(*args, **kwargs)
+        db.session.commit()
+
+    def commit(self):
         db.session.commit()
 
 
@@ -45,7 +66,20 @@ def setup_shortened_db(db):
     return CuspDatabase(Shortened)
 
 
+def setup_dyn_db(db):
+    class DynamicCatalog(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        author = db.Column(db.VARCHAR(50), default="Anonymous")
+        type = db.Column(db.VARCHAR(50), nullable=False)
+        url = db.Column(db.TEXT, nullable=False)
+        preview = db.Column(db.TEXT, nullable=True)
+        notes = db.Column(db.VARCHAR(150), default="None")
+
+    return CuspDatabase(DynamicCatalog)
+
+
 app.config["shortened.db"] = setup_shortened_db(db)
+app.config["dyn.db"] = setup_dyn_db(db)
 
 app.register_blueprint(subpages.info, url_prefix="")
 app.register_blueprint(subpages.app, url_prefix="/app")

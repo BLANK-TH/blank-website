@@ -9,6 +9,7 @@ from subpages.apps import *
 
 app = Blueprint("app", __name__, static_folder="static", template_folder="template")
 app.register_blueprint(collarname, url_prefix="/collar-name")
+app.register_blueprint(dynamiccatalog, url_prefix="/dynamic-catalog")
 
 
 @app.route("/", methods=["GET", "POST"])
