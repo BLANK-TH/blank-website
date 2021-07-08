@@ -2,9 +2,6 @@
 My website for various utilities, tools, and python applications. Some apps are requested by other people so certain
 things may be quite random.
 
-## Site
-[Link](https://blankdvth.pythonanywhere.com/) (Up [in Theory] 24/7)
-
 ## Status Page
 [Website Status](https://stats.uptimerobot.com/kMN9WSnl8x)  
 [Incident Tracker](https://blankdvth.pagefate.com/)
