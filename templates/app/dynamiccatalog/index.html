@@ -5,10 +5,9 @@
     <i>Thanks to all of the wonderful people who created these dynamic textures!
         <a href="{{ url_for("app.dynamic_catalog.add") }}">Click here to add your own.</a></i>
     <hr>
-    <form action="search" method="post">
-        <input type="query" placeholder="Search" style="width:80%;">
-        <input type="submit" value="Search" style="width:15%;">
-    </form><br>
+    <input
+            type="button" onclick="location.href='{{ url_for("app.dynamic_catalog.fltr") }}';" value="Filter Results"
+            style="width:100%;"/><br><br>
     <div>
         <table style="width: 100%;">
             <tr>
@@ -41,11 +40,12 @@
             {% endfor %}
             </tbody>
         </table>
+        <br>
     </div>
     <div style="float: right;">
         <a href="{{ url_for('app.dynamic_catalog.index', page=textures.prev_num) }}"
            class="btn btn-outline-dark
-       {% if textures.page == 1 %}disabled{% endif %}">
+{% if textures.page == 1 %}disabled{% endif %}">
             &laquo;
         </a><!-- Loop through the number of pages to display a link for each-->
         {% for page_num in textures.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}

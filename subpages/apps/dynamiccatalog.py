@@ -65,6 +65,32 @@ def add():
     else:
         return render_template("app/dynamiccatalog/add.html")
 
-# TODO: Create search
-# TODO: Create filter
-# TODO: Create individual view
+@dynamiccatalog.route("/filter", methods=["POST", "GET"])
+def fltr():
+    if request.method == "POST":
+        db = current_app.config["dyn.db"]
+        f = request.form
+        query = db.model.query
+        if len(f["id"].strip()) > 0:
+            query = query.filter_by(id=f["id"])
+        if len(f["author"].strip()) > 0:
+            query = query.filter(db.model.author.contains(f["author"]))
+        if f["type"] != "None":
+            query = query.filter_by(type=f["type"])
+        if len(f["notes"].strip()) > 0:
+            query = query.filter(db.model.notes.contains(f["notes"]))
+        return render_template("app/dynamiccatalog/filter_results.html", textures=query.order_by(db.model.id.desc()).all())
+    else:
+        return render_template("app/dynamiccatalog/filter.html")
+
+@dynamiccatalog.route("/delete/<id>")
+@auth.login_required
+def delete(id):
+    db = current_app.config["dyn.db"]
+    fltr = db.first_filter(id=id)
+    if fltr is None:
+        flash("ID '{}' does not exist".format(id), 'warning')
+        return redirect(url_for("app.dynamic_catalog.index"))
+    db.delete_one(fltr)
+    flash("'{}' successfully deleted".format(id), 'info')
+    return redirect(url_for("app.dynamic_catalog.index"))
