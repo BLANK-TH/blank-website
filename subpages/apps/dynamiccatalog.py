@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, session, current_app
-from flask_httpauth import HTTPBasicAuth
-from werkzeug.security import check_password_hash
-from requests import post
-from PIL import Image
 from io import BytesIO
+
+from PIL import Image
+from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app
+from flask_httpauth import HTTPBasicAuth
+from requests import post
+from werkzeug.security import check_password_hash
 
 from api_helper import ADMIN_HASH, IMGUR_CLIENT
 
@@ -17,10 +18,12 @@ def record(state):
     if db is None:
         raise Exception("This blueprint expects you to provide database access through dyn.db")
 
+
 @auth.verify_password
 def verify_password(username, password):
     if username == "admin" and check_password_hash(ADMIN_HASH, password):
         return "admin"
+
 
 @dynamiccatalog.route("/")
 def index():
@@ -28,6 +31,7 @@ def index():
     page = request.args.get('page', 1, type=int)
     textures = db.model.query.order_by(db.model.id.desc()).paginate(page=page, per_page=10)
     return render_template("app/dynamiccatalog/index.html", textures=textures)
+
 
 @dynamiccatalog.route("/add", methods=["POST", "GET"])
 def add():
@@ -65,6 +69,7 @@ def add():
     else:
         return render_template("app/dynamiccatalog/add.html")
 
+
 @dynamiccatalog.route("/filter", methods=["POST", "GET"])
 def fltr():
     if request.method == "POST":
@@ -79,9 +84,11 @@ def fltr():
             query = query.filter_by(type=f["type"])
         if len(f["notes"].strip()) > 0:
             query = query.filter(db.model.notes.contains(f["notes"]))
-        return render_template("app/dynamiccatalog/filter_results.html", textures=query.order_by(db.model.id.desc()).all())
+        return render_template("app/dynamiccatalog/filter_results.html",
+                               textures=query.order_by(db.model.id.desc()).all())
     else:
         return render_template("app/dynamiccatalog/filter.html")
+
 
 @dynamiccatalog.route("/delete/<id>")
 @auth.login_required
