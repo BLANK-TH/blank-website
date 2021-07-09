@@ -9,8 +9,6 @@
     <form action="#" method="post" enctype="multipart/form-data">
         <label for="resfile">Restraint Texture File (.PNG) *:</label>
         <input type="file" id="resfile" name="resfile" required><br>
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author" maxlength="50"><br>
         <label for="type">Type *:</label>
         <select name="type" id="type" required>
             <option value="Ropes">Ropes</option>
@@ -29,6 +27,8 @@
             <option value="Earplugs">Earplugs</option>
             <option value="Other">Other</option>
         </select><br>
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" maxlength="50"><br>
         <label for="notes">Notes:</label>
         <input type="text" id="notes" name="notes" maxlength="150" style="width: 75%;"><br>
         <label for="preview">Preview Image:</label>
