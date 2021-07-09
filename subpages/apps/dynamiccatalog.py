@@ -1,12 +1,13 @@
 from io import BytesIO
 
 from PIL import Image
-from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app
+from flask import Blueprint, Response, render_template, redirect, url_for, request, flash, current_app, \
+    stream_with_context
 from flask_httpauth import HTTPBasicAuth
 from requests import post
 from werkzeug.security import check_password_hash
 
-from api_helper import ADMIN_HASH, IMGUR_CLIENT
+from api_helper import is_human, ADMIN_HASH, IMGUR_CLIENT
 
 dynamiccatalog = Blueprint("dynamic_catalog", __name__, static_folder="static", template_folder="template")
 auth = HTTPBasicAuth()
@@ -96,10 +97,29 @@ def fltr():
             return render_template("app/dynamiccatalog/filter.html")
         return render_template("app/dynamiccatalog/filter_results.html",
                                textures=query.order_by(db.model.id.desc()).all(), fltr_u=url_for(
-                "app.dynamic_catalog.fltr", **{i:j for i,j in f.items()
+                "app.dynamic_catalog.fltr", **{i: j for i, j in f.items()
                                                if len(j.strip()) > 0 and not (i == "type" and j == "None")}))
     else:
         return render_template("app/dynamiccatalog/filter.html")
+
+
+@dynamiccatalog.route("/export", methods=["POST", "GET"])
+def export():
+    if request.method == "POST":
+        captcha_response = request.form["g-recaptcha-response"]
+        if is_human(captcha_response):
+            def generate():
+                db = current_app.config["dyn.db"]
+                yield "ID,Author,Type,URL,Preview,Notes\n"
+                for i in db.get_all():
+                    yield "{},{},{},{},{},{}\n".format(i.id, i.author, i.type, i.url, i.preview, i.notes)
+
+            return Response(stream_with_context(generate()), mimetype="text/csv")
+        else:
+            flash("You failed the reCAPTCHA", 'warning')
+            return redirect(request.url)
+    else:
+        return render_template("app/dynamiccatalog/export.html")
 
 
 @dynamiccatalog.route("/delete/<id>")

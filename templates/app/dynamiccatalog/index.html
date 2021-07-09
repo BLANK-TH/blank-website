@@ -3,8 +3,10 @@
 {% block body %}
     <h1>Dynamic Restraint Catalog</h1>
     <i>Thanks to all of the wonderful people who created these dynamic textures!
-        <a href="{{ url_for("app.dynamic_catalog.add") }}">Click here to add your own.</a> You can share an entry
-    by copying the ID hyperlink.</i>
+        <a href="{{ url_for("app.dynamic_catalog.add") }}">Click here to add your own</a>. <a
+                href="{{ url_for("app.dynamic_catalog.export") }}">Click here to export all of the entries in the
+            catalog</a>. You can share an entry
+        by copying the ID hyperlink.</i>
     <hr>
     <input
             type="button" onclick="location.href='{{ url_for("app.dynamic_catalog.fltr") }}';" value="Filter Results"

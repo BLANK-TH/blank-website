@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block head %}<script src="https://www.google.com/recaptcha/api.js"></script>{% endblock %}
+{% block title %}Export Dynamic Res Catalog{% endblock %}
+{% block body %}
+    <h1>Export Dynamic Res Catalog</h1>
+    <i>This function allows you to export every entry in the catalog as a CSV file. Please don't spam this page, it
+    could slow down the website considerably.</i>
+    <hr>
+    <form action="#" method="post">
+        <div class="g-recaptcha" data-sitekey="6LftDIYbAAAAAJvlPB9cfVW-aRGE8RGtqrix8MDR"></div>
+        <input type="submit" value="Export">
+    </form>
+{% endblock %}
