@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% if autorefresh is not none %}
+    {% block head %}<meta http-equiv="refresh" content="{{ autorefresh }}">{% endblock %}
+{% endif %}
+{% block title %}{{ response["ip"] }}:{{ response["port"] }} Players{% endblock %}
+{% block body %}
+    {% if response.online %}
+        <span title="Some servers only return up to 9 players when pinging." style="cursor: help;">
+            The server is online, here are the online players ({{ response["players"]["list"]|length }}/{{
+                response["players"]["online"] }}):</span>
+        <ul>
+        {% for i in response["players"]["list"] %}
+            <li>{{ i }}</li>
+        {% endfor %}
+        </ul>
+        <hr>
+        <p>Here's some more data:</p>
+        <strong>MOTD:</strong><br>
+        {% for i in response["motd"]["html"] %}
+            {{ i | safe }}<br>
+        {% endfor %}
+        <strong>Version:</strong> <i>{{ response["version"] }}</i><br>
+        {% if "hostname" in response %}
+            <strong>Hostname:</strong> <i>{{ response["hostname"] }}</i><br>
+        {% endif %}
+        {% if "mods" in response %}
+            <details>
+                <summary>Mods</summary>
+                <ul>
+                    {% for i in response["mods"]["names"] %}
+                        <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </details>
+        {% endif %}
+        {% if "icon" in response %}
+            <hr>
+            <img src="{{ response["icon"] }}" alt="Server icon">
+        {% endif %}
+    {% else %}
+        <p>The server is not currently online.</p>
+    {% endif %}
+{% endblock %}

@@ -3,6 +3,7 @@ from math import floor, ceil
 from os import getcwd
 from pathlib import Path
 
+import requests
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 
 from subpages.apps import *
@@ -54,3 +55,16 @@ def time_calculator():
                                          "higher_time": time_calc(higher), "target": str(timedelta(seconds=seconds))})
     else:
         return render_template("app/time-calculator.html")
+
+
+@app.route("/players/<ip>")
+def get_players(ip):
+    r = requests.get("https://api.mcsrvstat.us/2/" + ip)
+    if r.ok:
+        response = r.json()
+    else:
+        return "API to check players is current unavailable", 503
+    if "autorefresh" in request.args and request.args["autorefresh"].isnumeric():
+        return render_template("app/get_players.html", response=response, autorefresh=request.args["autorefresh"])
+    else:
+        return render_template("app/get_players.html", response=response, autorefresh=None)
