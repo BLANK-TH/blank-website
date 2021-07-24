@@ -7,7 +7,7 @@
     {% if response.online %}
         <span title="Some servers only return up to 9 players when pinging." style="cursor: help;">
             The server is online, here are the online players ({{ response["players"]["list"]|length }}/{{
-                response["players"]["online"] }}):</span>
+                response["players"]["online"] }}/{{ response["players"]["max"] }}):</span>
         <ul>
         {% for i in response["players"]["list"] %}
             <li>{{ i }}</li>
