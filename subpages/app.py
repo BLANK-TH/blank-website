@@ -63,7 +63,7 @@ def get_players(ip):
     if r.ok:
         response = r.json()
     else:
-        return "API to check players is current unavailable", 503
+        return "API to check players is currently unavailable", 503
     if "autorefresh" in request.args and request.args["autorefresh"].isnumeric():
         return render_template("app/get_players.html", response=response, autorefresh=request.args["autorefresh"],
                                rp={ip: ip})
